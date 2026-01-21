@@ -30,7 +30,7 @@ The Retail Monolith is an ASP.NET Core 9 Razor Pages application with SQL Server
 
 ### Restore Dependencies
 ```bash
-cd /home/runner/work/ads_monolith_skills_agents/ads_monolith_skills_agents
+cd /path/to/ads_monolith_skills_agents
 dotnet restore
 ```
 
@@ -53,9 +53,11 @@ dotnet build
 **Expected Output**:
 ```
 Build succeeded.
-    0 Warning(s)
+    5 Warning(s)
     0 Error(s)
 ```
+
+**Known Warnings**: The build currently produces 5 warnings related to nullable reference types in model classes (Product.cs, InventoryItem.cs) and Razor views. These are non-critical and do not affect functionality.
 
 **Artifacts**: `bin/Debug/net9.0/`
 
@@ -231,7 +233,7 @@ curl -k https://localhost:5001/api/orders/1
 ## Configuration Files
 
 ### appsettings.json (Base Configuration)
-**Location**: `/home/runner/work/ads_monolith_skills_agents/ads_monolith_skills_agents/appsettings.json`
+**Location**: `<project-root>/appsettings.json`
 
 **Contents**:
 ```json
@@ -247,7 +249,7 @@ curl -k https://localhost:5001/api/orders/1
 ```
 
 ### appsettings.Development.json (Development Overrides)
-**Location**: `/home/runner/work/ads_monolith_skills_agents/ads_monolith_skills_agents/appsettings.Development.json`
+**Location**: `<project-root>/appsettings.Development.json`
 
 **Contents**:
 ```json
@@ -461,7 +463,7 @@ Before deploying to production, address these issues:
 
 **Documentation Owner**: System Discovery Agent  
 **Documentation Date**: 2025-01-21  
-**Source Code**: `/home/runner/work/ads_monolith_skills_agents/ads_monolith_skills_agents`  
+**Source Code**: `<project-root>`  
 **Related Docs**:
 - [High-Level Design](./HLD.md)
 - [Low-Level Design](./LLD.md)

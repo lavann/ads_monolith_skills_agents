@@ -104,7 +104,7 @@ CartLine (entity)
 
 ### Checkout Domain
 
-#### Services/ICheckoutService.cs & Services/CheckoutService .cs
+#### Services/ICheckoutService.cs & Services/CheckoutService.cs
 - **Scope**: Scoped (per HTTP request)
 - **Dependencies**: `AppDbContext`, `IPaymentGateway`
 - **Responsibilities**: Orchestrate checkout process (cart → payment → order)
