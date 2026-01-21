@@ -30,7 +30,7 @@ The Retail Monolith is an ASP.NET Core 9 Razor Pages application with SQL Server
 
 ### Restore Dependencies
 ```bash
-cd /path/to/ads_monolith_skills_agents
+cd <project-root>
 dotnet restore
 ```
 
