@@ -1,6 +1,21 @@
-@OrderService_HostAddress = http://localhost:5182
+@OrderService_HostAddress = http://localhost:5001
 
-GET {{OrderService_HostAddress}}/weatherforecast/
-Accept: application/json
+# Get all orders
+GET {{OrderService_HostAddress}}/api/orders
+
+###
+
+# Get orders for a specific customer
+GET {{OrderService_HostAddress}}/api/orders?customerId=guest
+
+###
+
+# Get order by ID
+GET {{OrderService_HostAddress}}/api/orders/1
+
+###
+
+# Health check
+GET {{OrderService_HostAddress}}/health
 
 ###

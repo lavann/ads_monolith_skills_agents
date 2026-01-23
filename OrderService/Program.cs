@@ -12,11 +12,16 @@ if (builder.Environment.EnvironmentName == "Testing")
 }
 else
 {
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException(
+            "Database connection string 'DefaultConnection' is not configured. " +
+            "Please set the ConnectionStrings__DefaultConnection environment variable or configure it in appsettings.json.");
+    }
+    
     builder.Services.AddDbContext<OrderDbContext>(options =>
-        options.UseSqlServer(
-            builder.Configuration.GetConnectionString("DefaultConnection") ??
-            "Server=(localdb)\\MSSQLLocalDB;Database=RetailMonolith;Trusted_Connection=True;MultipleActiveResultSets=true"
-        ));
+        options.UseSqlServer(connectionString));
 }
 
 // Configure JSON options to handle reference cycles

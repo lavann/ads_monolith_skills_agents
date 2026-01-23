@@ -1,10 +1,18 @@
 version: '3.8'
 
+# NOTE: This docker-compose.yml is for local development only.
+# For production deployments:
+# - Use environment variables or secrets management for sensitive values
+# - Do not hardcode passwords or connection strings
+# - Use proper certificate configuration for SQL Server
+
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
     environment:
+      # WARNING: Password is hardcoded for development only
+      # Use environment variables or secrets management in production
       - SA_PASSWORD=YourStrong@Passw0rd123
       - ACCEPT_EULA=Y
     ports:
