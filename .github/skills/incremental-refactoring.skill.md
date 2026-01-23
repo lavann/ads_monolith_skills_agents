@@ -1,7 +1,7 @@
 ---
 name: incremental-refactoring
 version: 1.1
-purpose: Implement one approved migration slice safely in a factory-compatible way: small, reviewable, reversible, and fully tested.
+purpose: Implement one approved migration slice safely in a factory-compatible way small, reviewable, reversible, and fully tested.
 inputs:
   - /docs/Migration-Plan.md
   - /docs/Target-Architecture.md
