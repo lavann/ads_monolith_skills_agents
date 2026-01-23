@@ -1,23 +1,27 @@
 ---
-name: intelligent-application-migration
-version: 1.0
+name: incremental-refactoring
+version: 1.1
 purpose: "Implement one approved migration slice safely in a factory-compatible way: small, reviewable, reversible, and fully tested."
 inputs:
-  - system documentation
-  - migration plan
-  - assessment findings (if available)
+  - /docs/Migration-Plan.md
+  - /docs/Target-Architecture.md
+  - /docs/Test-Strategy.md
+  - /docs/Intelligent-Migration-Plan.md
+  - /docs/Risk-and-Governance.md
+  - /docs/Intelligent-Team-Model.md
 outputs:
-  - phased delivery roadmap
-  - team composition model
-  - risk mitigation framework
-  - budget and ROI model
+  - a pull request implementing exactly one slice
+  - updated/added tests
+  - updated runbook/ADRs where required
 guardrails:
-  - prefer small, cross-functional teams
-  - enforce human decision points
-  - avoid big-bang delivery
+  - one slice only
+  - preserve behaviour unless explicitly approved
+  - keep PR reviewable and reversible
+  - conform to risk posture and phase gates defined by the intelligent migration programme
 definition_of_done:
-  - migration plan addresses known failure modes explicitly and is executable
+  - slice acceptance criteria met, CI green, rollback remains valid, and governance constraints are respected
 ---
+
 
 ## Reasoning Framework
 
