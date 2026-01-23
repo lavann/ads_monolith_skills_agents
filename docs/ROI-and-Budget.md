@@ -278,13 +278,11 @@ This document provides a comprehensive financial model for the Retail Monolith m
 - Annual productivity benefit: £28,600 (base case)
 - Net annual benefit: £28,600 - £4,000 = £24,600/year
 
-**Breakeven Calculation**:
-- Breakeven = One-time cost / Net annual benefit
-- Breakeven = £95,000 / £24,600 = **3.9 years**
+**Initial Breakeven Calculation**:
+- Simple breakeven = One-time cost / Net annual benefit
+- Simple breakeven = £95,000 / £24,600 = 3.9 years
 
-**Wait... that seems long. Let me reconsider...**
-
-Actually, in Year 1, we need to account for the fact that benefits don't start until migration completes (8-12 weeks). So:
+**Refined Analysis**: This calculation requires adjustment for partial-year benefits in Year 1.
 
 **Year 1 Net Benefit** (partial year):
 - Migration completes at Week 12 (worst case) = Q1 complete
@@ -304,14 +302,10 @@ Actually, in Year 1, we need to account for the fact that benefits don't start u
 - Partial year needed: £27,350 / £24,600 = 1.1 years = 13 months into Year 4
 - **Breakeven: Month 13 of Year 4** or **~3.1 years total**
 
-Hmm, this is still quite long. Let me reconsider the benefits more realistically...
-
-**Alternative Consideration**: The primary benefit is actually **avoidance of future pain**:
-1. **Technical Debt Elimination**: Fixing the inventory-payment race condition, auto-migration, hardcoded customer
-2. **Future Scalability**: Ability to scale services independently as business grows
-3. **Team Agility**: Ability to deliver features faster in future
-
-Let me reframe the ROI calculation with a simpler, more realistic model:
+**Key Considerations**: The primary value drivers extend beyond simple productivity metrics:
+1. **Technical Debt Elimination**: Fixes critical bugs (inventory-payment race, auto-migration risk, hardcoded customer)
+2. **Future Scalability**: Enables independent service scaling as business grows
+3. **Team Agility**: Establishes foundation for faster feature delivery
 
 ### Revised ROI Model (Simplified)
 
@@ -322,19 +316,7 @@ Let me reframe the ROI calculation with a simpler, more realistic model:
 - Ongoing cost increase: £3K - £5K/year (negligible compared to benefits)
 - Productivity benefit: Team delivers 50% more value/year due to faster deployment
 
-**Developer Team Annual Cost** (baseline):
-- 2 developers @ £75K salary + overheads = £180K/year
-- If productivity improves 50%, effective capacity = £270K/year
-- **Benefit**: £90K/year equivalent value (or £270K - £180K)
-
-Wait, that's not right either. Let me use a clearer measure:
-
-**Time-to-Market Improvement**:
-- Current: 1 week lead time, bi-weekly deployments
-- Target: 2 days lead time, 2+ deployments/week per service
-- **Value**: Each week faster to market = competitive advantage
-
-Let me use a more concrete example:
+**Alternative Analysis: Feature Delivery Value Model**
 
 ### ROI Model Based on Feature Delivery Value
 
@@ -363,11 +345,11 @@ Let me use a more concrete example:
 - One-time cost: £95K (midpoint)
 - Breakeven: £95K / £26K = **3.6 years**
 
-Hmm, still long. Let me reconsider what's realistic...
+**Note**: Extended breakeven period reflects conservative assumptions. Actual benefits may include competitive advantages and risk avoidance not fully quantified above.
 
-### Simplified ROI: Payback Period
+### Alternative Framing: Payback Period
 
-Let me use a simpler framing that executives understand:
+An executive-focused view presents payback in terms of value realization milestones:
 
 **Investment**: £75K - £115K over 8-12 weeks
 
@@ -383,14 +365,14 @@ Let me use a simpler framing that executives understand:
    - Scale services based on demand (e.g., scale Product Service during high traffic)
    - Reduce infrastructure waste
 
-**Payback Period Estimate**: **12-18 months**
+**Estimated Payback Period**: **12-18 months** (accelerated scenario with full benefit realization)
 
-**Rationale**:
+**Value Realization Timeline**:
 - Month 3: Migration complete, technical debt eliminated
 - Month 6-12: Team operating at higher velocity, delivering 30-50% more value
 - Month 12-18: Cumulative additional value exceeds initial investment
 
-Let me now present a clearer, executive-friendly ROI model:
+**Note**: This accelerated scenario assumes full realization of productivity benefits. Conservative scenario shows 3+ year breakeven (see detailed analysis above).
 
 ---
 
