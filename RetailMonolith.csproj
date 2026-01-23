@@ -16,4 +16,10 @@
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="9.0.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Exclude test files from main project -->
+    <Compile Remove="RetailMonolith.Tests/**/*.cs" />
+    <None Include="RetailMonolith.Tests/**/*.cs" />
+  </ItemGroup>
+
 </Project>
