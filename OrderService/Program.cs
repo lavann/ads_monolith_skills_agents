@@ -4,12 +4,26 @@ using OrderService.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add database context with SQL Server
-builder.Services.AddDbContext<OrderDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection") ??
-        "Server=(localdb)\\MSSQLLocalDB;Database=RetailMonolith;Trusted_Connection=True;MultipleActiveResultSets=true"
-    ));
+// Add database context with SQL Server or In-Memory for testing
+if (builder.Environment.EnvironmentName == "Testing")
+{
+    builder.Services.AddDbContext<OrderDbContext>(options =>
+        options.UseInMemoryDatabase("OrderServiceTestDb"));
+}
+else
+{
+    builder.Services.AddDbContext<OrderDbContext>(options =>
+        options.UseSqlServer(
+            builder.Configuration.GetConnectionString("DefaultConnection") ??
+            "Server=(localdb)\\MSSQLLocalDB;Database=RetailMonolith;Trusted_Connection=True;MultipleActiveResultSets=true"
+        ));
+}
+
+// Configure JSON options to handle reference cycles
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
 
 // Add health checks
 builder.Services.AddHealthChecks()

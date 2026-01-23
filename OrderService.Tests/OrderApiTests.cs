@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OrderService.Data;
 using OrderService.Models;
@@ -9,51 +8,31 @@ using System.Net.Http.Json;
 
 namespace OrderService.Tests;
 
-public class CustomWebApplicationFactory : WebApplicationFactory<Program>
+public class OrderApiFixture : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureServices(services =>
-        {
-            // Remove all existing DbContext related registrations
-            var descriptors = services.Where(d =>
-                d.ServiceType == typeof(DbContextOptions<OrderDbContext>) ||
-                d.ServiceType == typeof(DbContextOptions) ||
-                d.ImplementationType?.FullName?.Contains("OrderDbContext") == true)
-                .ToList();
+        builder.UseEnvironment("Testing");
+    }
+}
 
-            foreach (var descriptor in descriptors)
-            {
-                services.Remove(descriptor);
-            }
+public class OrderApiTests : IClassFixture<OrderApiFixture>
+{
+    private readonly OrderApiFixture _factory;
 
-            // Add a database context (using InMemory database for testing)
-            services.AddDbContext<OrderDbContext>(options =>
-            {
-                options.UseInMemoryDatabase("InMemoryDbForTesting");
-            });
-
-            var sp = services.BuildServiceProvider();
-
-            using (var scope = sp.CreateScope())
-            {
-                var scopedServices = scope.ServiceProvider;
-                var db = scopedServices.GetRequiredService<OrderDbContext>();
-
-                // Ensure the database is created
-                db.Database.EnsureCreated();
-
-                // Seed the database with test data
-                SeedTestData(db);
-            }
-        });
+    public OrderApiTests(OrderApiFixture factory)
+    {
+        _factory = factory;
     }
 
-    private static void SeedTestData(OrderDbContext db)
+    private void SeedTestData()
     {
-        // Clear existing data
-        db.Orders.RemoveRange(db.Orders);
-        db.SaveChanges();
+        using var scope = _factory.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+        
+        // Clear any existing data
+        db.Database.EnsureDeleted();
+        db.Database.EnsureCreated();
 
         var order1 = new Order
         {
@@ -100,21 +79,12 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
         db.Orders.AddRange(order1, order2);
         db.SaveChanges();
     }
-}
-
-public class OrderApiTests : IClassFixture<CustomWebApplicationFactory>
-{
-    private readonly CustomWebApplicationFactory _factory;
-
-    public OrderApiTests(CustomWebApplicationFactory factory)
-    {
-        _factory = factory;
-    }
 
     [Fact]
     public async Task GetOrders_ReturnsAllOrders_WhenNoFilterProvided()
     {
         // Arrange
+        SeedTestData();
         var client = _factory.CreateClient();
 
         // Act
@@ -132,6 +102,7 @@ public class OrderApiTests : IClassFixture<CustomWebApplicationFactory>
     public async Task GetOrders_ReturnsFilteredOrders_WhenCustomerIdProvided()
     {
         // Arrange
+        SeedTestData();
         var client = _factory.CreateClient();
 
         // Act
@@ -150,6 +121,7 @@ public class OrderApiTests : IClassFixture<CustomWebApplicationFactory>
     public async Task GetOrderById_ReturnsOrder_WhenOrderExists()
     {
         // Arrange
+        SeedTestData();
         var client = _factory.CreateClient();
 
         // Act
@@ -173,6 +145,7 @@ public class OrderApiTests : IClassFixture<CustomWebApplicationFactory>
     public async Task GetOrderById_Returns404_WhenOrderDoesNotExist()
     {
         // Arrange
+        SeedTestData();
         var client = _factory.CreateClient();
 
         // Act
@@ -186,6 +159,7 @@ public class OrderApiTests : IClassFixture<CustomWebApplicationFactory>
     public async Task CreateOrder_CreatesNewOrder_WithValidData()
     {
         // Arrange
+        SeedTestData();
         var client = _factory.CreateClient();
         var newOrder = new Order
         {
@@ -241,6 +215,7 @@ public class OrderApiTests : IClassFixture<CustomWebApplicationFactory>
     public async Task GetOrders_ReturnsOrdersDescendingByCreatedDate()
     {
         // Arrange
+        SeedTestData();
         var client = _factory.CreateClient();
 
         // Act
@@ -264,6 +239,7 @@ public class OrderApiTests : IClassFixture<CustomWebApplicationFactory>
     public async Task GetOrderById_IncludesOrderLines()
     {
         // Arrange
+        SeedTestData();
         var client = _factory.CreateClient();
 
         // Act
