@@ -1,7 +1,7 @@
 ---
 name: intelligent-application-migration
 version: 1.0
-purpose: Design a high-probability application migration programme using Chaos Report risk patterns and AI-augmented delivery.
+purpose: "Implement one approved migration slice safely in a factory-compatible way: small, reviewable, reversible, and fully tested."
 inputs:
   - system documentation
   - migration plan
