@@ -20,6 +20,10 @@
     <!-- Exclude test files from main project -->
     <Compile Remove="RetailMonolith.Tests/**/*.cs" />
     <None Include="RetailMonolith.Tests/**/*.cs" />
+    <!-- Exclude OrderService and ApiGateway from main project -->
+    <Compile Remove="OrderService/**/*.cs" />
+    <Compile Remove="ApiGateway/**/*.cs" />
+    <Compile Remove="OrderService.Tests/**/*.cs" />
   </ItemGroup>
 
 </Project>
